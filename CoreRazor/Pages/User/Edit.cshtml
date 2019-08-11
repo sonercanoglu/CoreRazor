@@ -1,0 +1,83 @@
+﻿@page
+@model CoreRazor.Pages.User.EditModel
+@{
+    ViewData["Title"] = "User - Edit";
+}
+
+<!-- Breadcrumb-->
+<ol class="breadcrumb">
+    <li class="breadcrumb-item">
+        <a asp-page="Index">Users</a>
+    </li>
+    <li class="breadcrumb-item active">Edit</li>
+</ol>
+
+<div class="container-fluid">
+    <div class="animated fadeIn">
+        <div class="row">
+            <div class="col-lg-12">
+                <div class="card">
+                    <div class="card-header">
+                        <strong>Edit User</strong>
+                        Form
+                    </div>
+                    <form method="post" class="form-horizontal">
+                        @Html.AntiForgeryToken()
+                        <div class="card-body">
+                            <div asp-validation-summary="ModelOnly" class="text-danger"></div>
+                            <input type="hidden" asp-for="@Model.userView.Id" />
+                            <div class="form-group row">
+                                <label class="col-md-1 col-form-label" asp-for="@Model.userView.Employee_Id">Employee</label>
+                                <div class="col-md-2">
+                                    <label class="form-control" asp-for="@Model.userView.EmployeeName">@Model.userView.EmployeeName</label>
+                                    <input type="hidden" class="form-control" asp-for="@Model.userView.Employee_Id" />
+
+                                </div>
+                            </div>
+                            <div class="form-group row">
+                                <label class="col-md-1 col-form-label" asp-for="@Model.userView.Username">Username</label>
+                                <div class="col-md-2">
+                                    <input type="text" asp-for="@Model.userView.Username" class="form-control" placeholder="Username">
+                                    <span asp-validation-for="@Model.userView.Username" class="text-danger"></span>
+                                </div>
+                            </div>
+                            <div class="form-group row">
+                                <label class="col-md-1 col-form-label" asp-for="@Model.userView.Password">Password</label>
+                                <div class="col-md-2">
+                                    <input type="password" asp-for="@Model.userView.Password" class="form-control" placeholder="Password">
+                                    <span asp-validation-for="@Model.userView.Password" class="text-danger"></span>
+                                </div>
+                            </div>
+                            <div class="form-group row">
+                                <label class="col-md-1 col-form-label">Roles</label>
+                                <div class="col-md-2">
+
+                                    @for (int i = 0; i < Model.userView.UserRoleViews.Count(); i++)
+                                    {
+                                        <div class="form-check" style="padding:0px">
+
+                                            <input asp-for="@Model.userView.UserRoleViews[i].Selected" type="checkbox" />
+                                            <label asp-for="@Model.userView.UserRoleViews[i].Name">@Model.userView.UserRoleViews[i].Name</label>
+                                            <input asp-for="@Model.userView.UserRoleViews[i].Id" type="hidden" />
+                                            <input type="hidden" asp-for="@Model.userView.UserRoleViews[i].Name" />
+                                            <input type="hidden" asp-for="@Model.userView.UserRoleViews[i].UserRole_Id" />
+                                        </div>
+                                    }
+                                </div>
+                            </div>
+                        </div>
+                        <div class="card-footer">
+                            <button type="submit" class="btn btn-warning">
+                                <i class="fa fa-edit fa-lg"></i> Update
+                            </button>
+                            <a asp-page="Index" class="btn btn-danger">
+                                <i class="fa fa-minus-square fa-lg"></i> Cancel
+                            </a>
+                        </div>
+                    </form>
+                </div>
+            </div>
+            <!--/.col-->
+        </div>
+    </div>
+</div>
